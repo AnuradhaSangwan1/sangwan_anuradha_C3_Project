@@ -10,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class RestaurantTest {
     Restaurant restaurant;
     //REFACTOR ALL THE REPEATED LINES OF CODE
+List<Item> custorder = new ArrayList<Item>();
+
       LocalTime openingTime = LocalTime.parse("10:30:00");
         LocalTime closingTime = LocalTime.parse("22:00:00");
   
@@ -35,8 +37,22 @@ class RestaurantTest {
         assertFalse(restaurant.isRestaurantOpen());
     }
 
+@Test
+    public void order_value_should_reduce_cumulative_total_when_an_item_removed(){
+        restaurantCreation();
+        custorder = restaurant.getMenu();
+        int total = restaurant.getOrderValue(custorder);
+        int afterTotal = spoof.get(1).getPrice();
+        custorder.remove(1);
+        assertEquals(total-afterTotal,restaurant.getOrderValue(custorder));
+    }
     //<<<<<<<<<<<<<<<<<<<<<<<<<OPEN/CLOSED>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-
+@Test
+    public void order_value_should_get_cumulative_total_when_collection_of_items_selected(){
+        restaurantCreation();
+        custorder = restaurant.getMenu();
+        assertEquals(506,restaurant.getOrderValue(custorder));
+    }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>>>MENU<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
     @Test

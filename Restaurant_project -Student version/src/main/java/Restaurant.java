@@ -102,7 +102,7 @@ public int getOrderValue(List<Item> item){
             totalValue += myItem.getPrice();
         }
         return totalValue;
-    }
+    
     }
 
 }
